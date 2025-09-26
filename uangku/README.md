@@ -1,6 +1,3 @@
-# uangku-web
-is a financial website to manage your budget, money, expenses, income.
-
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
