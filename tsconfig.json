@@ -7,6 +7,6 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "esModuleInterop": true,
-    "types": ["jest", "@testing-library/jest-dom", "./src/global"]
+    "types": ["jest", "@testing-library/jest-dom", "./src/global", "cypress"]
   }
 }

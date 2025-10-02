@@ -1,5 +1,5 @@
-import {useState, type FC, type FormEvent} from "react";
-import {Link} from "react-router";
+import {useEffect, useState, type FC, type FormEvent} from "react";
+import {Link, useNavigate} from "react-router";
 import {useAuth} from "../hooks/useAuth";
 import type {AuthForm as AuthFormType} from "../types";
 
@@ -9,11 +9,20 @@ interface AuthFormProps {
 
 const AuthForm: FC<AuthFormProps> = ({isSignUp}) => {
   const {user, loading, error, login, register} = useAuth();
+  const navigate = useNavigate();
+
   const [authForm, setAuthForm] = useState<AuthFormType>({
     email: "",
     password: "",
     name: "",
   });
+
+  useEffect(() => {
+    if (user?.id) {
+      navigate("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const title = isSignUp ? "Sign Up" : "Sign In";
   const directTitle = !isSignUp ? "Sign Up" : "Sign In";
@@ -33,59 +42,54 @@ const AuthForm: FC<AuthFormProps> = ({isSignUp}) => {
   };
 
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-4">{title}</h2>
-
-      {error && <div className="mb-4 text-sm text-red-600">Error: {error}</div>}
-      {user && (
-        <div className="mb-4 text-sm text-green-600">
-          Welcome back, {user.name}!
-        </div>
+    <form className="card-body" onSubmit={handleSubmit}>
+      <h2 className="card-title self-center md:self-auto">{title} to Uangku</h2>
+      {isSignUp && (
+        <>
+          <label className="label">Name</label>
+          <input
+            name="name"
+            type="text"
+            className="w-100 input input-primary"
+            placeholder="Name"
+            required
+            onChange={handleChange}
+          />
+        </>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          required
-          className="w-full border p-2 rounded"
-          onChange={handleChange}
-        />
-        <input
-          type="email"
-          name="email"
-          value={authForm.email}
-          placeholder="Email"
-          required
-          className="w-full border p-2 rounded"
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          value={authForm.password}
-          placeholder="Password"
-          required
-          className="w-full border p-2 rounded"
-          onChange={handleChange}
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded"
-        >
-          {loading ? "Loading..." : title}
-        </button>
-      </form>
+      <label className="label">Email</label>
+      <input
+        type="email"
+        name="email"
+        className="w-100 input input-primary"
+        placeholder="Email"
+        required
+        onChange={handleChange}
+      />
 
-      <p className="mt-4 text-sm">
+      <label className="label">Password</label>
+      <input
+        name="password"
+        type="password"
+        className="w-100 input input-primary"
+        placeholder="Password"
+        required
+        onChange={handleChange}
+      />
+
+      <button type="submit" className="btn btn-primary mt-4" disabled={loading}>
+        {loading && <span className="loading loading-spinner"></span>}
+        {title}
+      </button>
+      {error && <p className="mt-2 text-red-500">{error}</p>}
+      <p className="mt-4 text-sm text-center">
         Don’t have an account?{" "}
-        <Link to={directRoute} className="text-blue-600">
+        <Link to={directRoute} className="text-blue-400 underline">
           {directTitle}
         </Link>
       </p>
-    </div>
+    </form>
   );
 };
 export default AuthForm;

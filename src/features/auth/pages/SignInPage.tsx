@@ -1,5 +1,7 @@
 import AuthForm from "../components/AuthForm";
 
-export default function SignInPage() {
+const SignIn = () => {
   return <AuthForm />;
-}
+};
+
+export default SignIn;

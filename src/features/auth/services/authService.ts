@@ -4,7 +4,7 @@ export async function loginService({
   email,
   password,
 }: AuthForm): Promise<AuthResponse> {
-  await new Promise((r) => setTimeout(r, 500)); // simulate API delay
+  await new Promise((r) => setTimeout(r, 1000)); // simulate API delay
 
   if (email === "admin@example.com" && password === "password") {
     const user: User = {id: "1", name: "Admin", email};
@@ -19,7 +19,7 @@ export async function registerService({
   email,
   password,
 }: AuthForm): Promise<AuthResponse> {
-  await new Promise((r) => setTimeout(r, 500));
+  await new Promise((r) => setTimeout(r, 1000));
 
   if (!email || !password) {
     return {error: "Email and password required"};
