@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import App from "../App";
+import App from "./App";
 
 // Mock react-router Outlet (default case)
 jest.mock("react-router", () => ({
@@ -7,9 +7,9 @@ jest.mock("react-router", () => ({
 }));
 
 // Mock PageLoader
-jest.mock("../components/PageLoader", () => () => (
-  <div data-testid="page-loader" />
-));
+jest.mock("@/components", () => ({
+  PageLoader: () => <div data-testid="page-loader" />,
+}));
 
 describe("App components", () => {
   afterEach(() => {
@@ -30,7 +30,7 @@ describe("App components", () => {
     }));
 
     // re-import App after mocking
-    const {default: SuspenseApp} = await import("../App");
+    const {default: SuspenseApp} = await import("./App");
 
     render(<SuspenseApp />);
     expect(await screen.findByTestId("page-loader")).toBeInTheDocument();

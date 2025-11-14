@@ -1,6 +1,6 @@
+import {PageLoader} from "@/components";
 import {Suspense} from "react";
 import {Outlet} from "react-router";
-import PageLoader from "./components/PageLoader";
 
 export default function App() {
   return (

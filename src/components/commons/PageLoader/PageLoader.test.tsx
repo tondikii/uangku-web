@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import PageLoader from "../PageLoader";
+import PageLoader from "./PageLoader";
 
 jest.mock("react-spinners", () => ({
   PropagateLoader: () => <div data-testid="page-loader" />,

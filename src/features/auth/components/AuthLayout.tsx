@@ -1,9 +1,10 @@
 import {Outlet} from "react-router";
 import ManageMoneySvg from "@/assets/manage_money.svg";
+import FullScreenContainer from "@/components/layouts/FullScreenContainer/FullScreenContainer";
 
 export default function AuthLayout() {
   return (
-    <div className="w-screen h-screen flex justify-center items-center p-4">
+    <FullScreenContainer>
       <div className="card md:card-side bg-base-100 shadow-sm !items-center">
         <figure className="p-4">
           <img
@@ -14,6 +15,6 @@ export default function AuthLayout() {
         </figure>
         <Outlet />
       </div>
-    </div>
+    </FullScreenContainer>
   );
 }

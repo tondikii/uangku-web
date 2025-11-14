@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {render, screen, waitFor} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import AuthForm from "../AuthForm";
+import AuthForm from "./AuthForm";
 
 // mock useAuth
 const mockLogin = jest.fn();
@@ -10,7 +10,7 @@ let mockUser: any = null;
 let mockLoading = false;
 let mockError: string | null = null;
 
-jest.mock("../../hooks/useAuth", () => ({
+jest.mock("../hooks/useAuth", () => ({
   useAuth: () => ({
     user: mockUser,
     loading: mockLoading,

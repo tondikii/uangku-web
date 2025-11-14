@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import AuthLayout from "../AuthLayout";
+import AuthLayout from "./AuthLayout";
 
 // mock react-router Outlet
 jest.mock("react-router", () => ({

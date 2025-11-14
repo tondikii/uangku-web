@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1759377506524" clover="3.2.0">
-  <project timestamp="1759377506524" name="All files">
-    <metrics statements="42" coveredstatements="42" conditionals="20" coveredconditionals="20" methods="11" coveredmethods="11" elements="73" coveredelements="73" complexity="0" loc="42" ncloc="42" packages="4" files="6" classes="6"/>
+<coverage generated="1763133851624" clover="3.2.0">
+  <project timestamp="1763133851624" name="All files">
+    <metrics statements="63" coveredstatements="63" conditionals="30" coveredconditionals="28" methods="15" coveredmethods="14" elements="108" coveredelements="105" complexity="0" loc="63" ncloc="63" packages="9" files="11" classes="11"/>
     <package name="app">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="App.tsx" path="/Users/tondikiandika/Desktop/Programming/portfolio/uangku-web/src/app/App.tsx">
@@ -13,19 +13,51 @@
         <line num="6" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="app.components">
-      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="PageLoader.tsx" path="/Users/tondikiandika/Desktop/Programming/portfolio/uangku-web/src/app/components/PageLoader.tsx">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+    <package name="components">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="index.ts" path="/Users/tondikiandika/Desktop/Programming/portfolio/uangku-web/src/components/index.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.commons">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <file name="index.ts" path="/Users/tondikiandika/Desktop/Programming/portfolio/uangku-web/src/components/commons/index.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.commons.PageLoader">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="PageLoader.tsx" path="/Users/tondikiandika/Desktop/Programming/portfolio/uangku-web/src/components/commons/PageLoader/PageLoader.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.layouts">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="index.ts" path="/Users/tondikiandika/Desktop/Programming/portfolio/uangku-web/src/components/layouts/index.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="6" type="stmt"/>
+      </file>
+    </package>
+    <package name="components.layouts.FullScreenContainer">
+      <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <file name="FullScreenContainer.tsx" path="/Users/tondikiandika/Desktop/Programming/portfolio/uangku-web/src/components/layouts/FullScreenContainer/FullScreenContainer.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
       </file>
     </package>
     <package name="features.auth.components">
-      <metrics statements="27" coveredstatements="27" conditionals="20" coveredconditionals="20" methods="7" coveredmethods="7"/>
+      <metrics statements="29" coveredstatements="29" conditionals="22" coveredconditionals="22" methods="7" coveredmethods="7"/>
       <file name="AuthForm.tsx" path="/Users/tondikiandika/Desktop/Programming/portfolio/uangku-web/src/features/auth/components/AuthForm.tsx">
-        <metrics statements="23" coveredstatements="23" conditionals="20" coveredconditionals="20" methods="6" coveredmethods="6"/>
+        <metrics statements="24" coveredstatements="24" conditionals="22" coveredconditionals="22" methods="6" coveredmethods="6"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -39,23 +71,25 @@
         <line num="27" count="70" type="cond" truecount="2" falsecount="0"/>
         <line num="28" count="70" type="cond" truecount="2" falsecount="0"/>
         <line num="29" count="70" type="cond" truecount="2" falsecount="0"/>
-        <line num="31" count="70" type="stmt"/>
-        <line num="32" count="61" type="stmt"/>
-        <line num="33" count="61" type="stmt"/>
-        <line num="36" count="70" type="stmt"/>
-        <line num="37" count="2" type="stmt"/>
-        <line num="38" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="39" count="1" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
-        <line num="44" count="70" type="stmt"/>
-        <line num="95" count="1" type="stmt"/>
+        <line num="30" count="70" type="cond" truecount="2" falsecount="0"/>
+        <line num="34" count="70" type="stmt"/>
+        <line num="35" count="61" type="stmt"/>
+        <line num="36" count="61" type="stmt"/>
+        <line num="39" count="70" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="41" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="47" count="70" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
       </file>
       <file name="AuthLayout.tsx" path="/Users/tondikiandika/Desktop/Programming/portfolio/uangku-web/src/features/auth/components/AuthLayout.tsx">
-        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
       </file>
     </package>
     <package name="features.auth.pages">
@@ -72,6 +106,23 @@
         <line num="1" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="features.error.pages">
+      <metrics statements="11" coveredstatements="11" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
+      <file name="ErrorPage.tsx" path="/Users/tondikiandika/Desktop/Programming/portfolio/uangku-web/src/features/error/pages/ErrorPage.tsx">
+        <metrics statements="11" coveredstatements="11" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="25" count="2" type="cond" truecount="3" falsecount="1"/>
+        <line num="27" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="2" type="stmt"/>
       </file>
     </package>
   </project>

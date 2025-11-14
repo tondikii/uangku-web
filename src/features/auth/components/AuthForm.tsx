@@ -27,6 +27,9 @@ const AuthForm: FC<AuthFormProps> = ({isSignUp}) => {
   const title = isSignUp ? "Sign Up" : "Sign In";
   const directTitle = !isSignUp ? "Sign Up" : "Sign In";
   const directRoute = !isSignUp ? "/sign-up" : "/sign-in";
+  const directMessage = !isSignUp
+    ? "Don’t have an account?"
+    : "Already have an account?";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
@@ -84,7 +87,7 @@ const AuthForm: FC<AuthFormProps> = ({isSignUp}) => {
       </button>
       {error && <p className="mt-2 text-red-500">{error}</p>}
       <p className="mt-4 text-sm text-center">
-        Don’t have an account?{" "}
+        {directMessage}{" "}
         <Link to={directRoute} className="text-blue-400 underline">
           {directTitle}
         </Link>

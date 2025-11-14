@@ -11,6 +11,8 @@ node_modules
 dist
 dist-ssr
 *.local
+# Unit tests coverage
+coverage
 
 # Editor directories and files
 .vscode/*

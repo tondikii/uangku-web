@@ -1,10 +1,25 @@
 export default {
   // Menggunakan ts-jest preset untuk menangani TypeScript
   preset: "ts-jest",
+
   // Environment testing yang digunakan adalah jsdom (simulasi browser)
   testEnvironment: "jsdom",
+
   // File yang dijalankan setelah environment test setup, biasanya untuk setup tambahan seperti import matchers
   setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
+
+  globals: {
+    "ts-jest": {
+      tsconfig: {
+        moduleResolution: "node", // Ubah ke node untuk Jest
+        baseUrl: ".",
+        paths: {
+          "@/*": ["src/*"],
+        },
+      },
+    },
+  },
+
   // Mapping module, misalnya untuk alias path atau file static seperti CSS dan gambar
   moduleNameMapper: {
     // Jika menggunakan alias @ untuk src (sesuaikan dengan konfigurasi vite Anda)
