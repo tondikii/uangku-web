@@ -1,20 +1,19 @@
 import {Outlet} from "react-router";
 import ManageMoneySvg from "@/assets/manage_money.svg";
-import FullScreenContainer from "@/components/layouts/FullScreenContainer/FullScreenContainer";
+import {Grid, Image} from "@/components/atoms";
+import {FullScreenContainer} from "@/components/molecules";
 
 export default function AuthLayout() {
   return (
     <FullScreenContainer>
-      <div className="card md:card-side bg-base-100 shadow-sm !items-center">
-        <figure className="p-4">
-          <img
-            className="w-xs md:w-sm lg:w-sm xl:w-md 2xl:w-lg"
-            src={ManageMoneySvg}
-            alt="Manage Money Illustration"
-          />
-        </figure>
+      <Grid direction="rows" gap={8} className="place-items-center">
+        <Image
+          className="w-xs"
+          src={ManageMoneySvg}
+          alt="Manage Money Illustration"
+        />
         <Outlet />
-      </div>
+      </Grid>
     </FullScreenContainer>
   );
 }

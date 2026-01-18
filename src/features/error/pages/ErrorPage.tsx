@@ -1,7 +1,8 @@
 import {useRouteError} from "react-router";
-import {FullScreenContainer} from "@/components";
 import Error404Svg from "@/assets/error_404.svg";
 import Error500Svg from "@/assets/error_500.svg";
+import {FullScreenContainer} from "@/components/molecules";
+import {Image, Text} from "@/components/atoms";
 
 interface RouteError {
   status: number;
@@ -28,8 +29,10 @@ export default function ErrorPage() {
 
   return (
     <FullScreenContainer className="flex-col">
-      <img className="w-full sm:w-1/2" src={data.image} alt={data.imageAlt} />
-      <p className="mt-2 sm:text-lg lg:text-xl text-center">{data.message}</p>
+      <Image className="w-xs" src={data.image} alt={data.imageAlt} />
+      <Text className="mt-2" size="sm">
+        {data.message}
+      </Text>
     </FullScreenContainer>
   );
 }

@@ -7,8 +7,6 @@ export default function DashboardLayout() {
         <h1 className="text-xl font-bold">UangKu</h1>
         <nav className="space-x-4">
           <Link to="/">Home</Link>
-          <Link to="/sign-in">Sign In</Link>
-          <Link to="/sign-up">Sign Up</Link>
         </nav>
       </header>
 

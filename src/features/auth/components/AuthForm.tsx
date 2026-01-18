@@ -1,14 +1,16 @@
 import {useEffect, useState, type FC, type FormEvent} from "react";
 import {Link, useNavigate} from "react-router";
 import {useAuth} from "../hooks/useAuth";
-import type {AuthForm as AuthFormType} from "../types";
+import type {AuthFormType} from "@/types/auth.type";
+import {Button, Grid, Text} from "@/components/atoms";
+import {FormField, Title} from "@/components/molecules";
 
 interface AuthFormProps {
   isSignUp?: boolean;
 }
 
 const AuthForm: FC<AuthFormProps> = ({isSignUp}) => {
-  const {user, loading, error, login, register} = useAuth();
+  const {user, loading, error, signIn, signUp} = useAuth();
   const navigate = useNavigate();
 
   const [authForm, setAuthForm] = useState<AuthFormType>({
@@ -27,7 +29,7 @@ const AuthForm: FC<AuthFormProps> = ({isSignUp}) => {
   const title = isSignUp ? "Sign Up" : "Sign In";
   const directTitle = !isSignUp ? "Sign Up" : "Sign In";
   const directRoute = !isSignUp ? "/sign-up" : "/sign-in";
-  const directMessage = !isSignUp
+  const directText = !isSignUp
     ? "Don’t have an account?"
     : "Already have an account?";
 
@@ -39,60 +41,33 @@ const AuthForm: FC<AuthFormProps> = ({isSignUp}) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (isSignUp) {
-      return await register(authForm);
+      await signUp(authForm);
+      return;
     }
-    await login(authForm);
+    await signIn(authForm);
   };
 
   return (
-    <form className="card-body" onSubmit={handleSubmit}>
-      <h2 className="card-title self-center md:self-auto">{title} to Uangku</h2>
-      {isSignUp && (
-        <>
-          <label className="label">Name</label>
-          <input
-            name="name"
-            type="text"
-            className="w-100 input input-primary"
-            placeholder="Name"
-            required
-            onChange={handleChange}
-          />
-        </>
-      )}
+    <Grid isForm className="place-items-center" onSubmit={handleSubmit}>
+      <Title>{title} to Uangku</Title>
+      {isSignUp && <FormField name="name" onChange={handleChange} />}
 
-      <label className="label">Email</label>
-      <input
-        type="email"
-        name="email"
-        className="w-100 input input-primary"
-        placeholder="Email"
-        required
-        onChange={handleChange}
-      />
+      <FormField name="email" type="email" onChange={handleChange} />
 
-      <label className="label">Password</label>
-      <input
-        name="password"
-        type="password"
-        className="w-100 input input-primary"
-        placeholder="Password"
-        required
-        onChange={handleChange}
-      />
+      <FormField name="password" type="password" onChange={handleChange} />
 
-      <button type="submit" className="btn btn-primary mt-4" disabled={loading}>
-        {loading && <span className="loading loading-spinner"></span>}
+      <Button className="w-full" loading={loading}>
         {title}
-      </button>
-      {error && <p className="mt-2 text-red-500">{error}</p>}
-      <p className="mt-4 text-sm text-center">
-        {directMessage}{" "}
+      </Button>
+
+      {error && <Text className="text-red-500">{error}</Text>}
+      <Text>
+        {directText}{" "}
         <Link to={directRoute} className="text-blue-400 underline">
           {directTitle}
         </Link>
-      </p>
-    </form>
+      </Text>
+    </Grid>
   );
 };
 export default AuthForm;

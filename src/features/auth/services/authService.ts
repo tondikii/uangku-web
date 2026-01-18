@@ -1,30 +1,22 @@
-import type {AuthForm, AuthResponse, User} from "../types";
+import {api} from "@/lib/axios";
+import type {
+  AuthFormType,
+  SignInResponse,
+  SignUpResponse,
+} from "@/types/auth.type";
 
-export async function loginService({
+export async function signInService({
   email,
   password,
-}: AuthForm): Promise<AuthResponse> {
-  await new Promise((r) => setTimeout(r, 1000)); // simulate API delay
-
-  if (email === "admin@example.com" && password === "password") {
-    const user: User = {id: "1", name: "Admin", email};
-    return {user};
-  }
-
-  return {error: "Invalid credentials"};
+}: AuthFormType): Promise<SignInResponse> {
+  const {data} = await api.post("/auth/sign-in", {email, password});
+  return data;
 }
 
-export async function registerService({
-  name,
-  email,
-  password,
-}: AuthForm): Promise<AuthResponse> {
-  await new Promise((r) => setTimeout(r, 1000));
+export async function signUpService(
+  payload: AuthFormType
+): Promise<SignUpResponse> {
+  const {data} = await api.post("/auth/sign-up", payload);
 
-  if (!email || !password) {
-    return {error: "Email and password required"};
-  }
-
-  const user: User = {id: "2", name, email};
-  return {user};
+  return data;
 }
