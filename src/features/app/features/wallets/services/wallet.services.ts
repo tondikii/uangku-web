@@ -32,7 +32,7 @@ export async function editWalletService({
   id,
   ...payload
 }: {id: number} & WalletFormType): Promise<MutationWalletResponse> {
-  const {data} = await api.put(`/wallets/${id}`, payload);
+  const {data} = await api.patch(`/wallets/${id}`, payload);
   return data;
 }
 
