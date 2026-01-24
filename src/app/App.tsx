@@ -1,20 +1,26 @@
-import {Flex} from "@/components/atoms";
-import {PageLoader} from "@/components/organisms";
-import {WIDTH_SM} from "@/constants/sizes.constant";
+import {Col, Loading} from "@/components/atoms";
+import {FullScreenContainer} from "@/components/molecules";
+import {BREAK_POINT_SM} from "@/constants/sizes.constant";
 import {Suspense} from "react";
 import {Outlet} from "react-router";
 
 export default function App() {
   return (
-    <Suspense fallback={<PageLoader />}>
-      <Flex className="min-h-screen bg-neutral-200 flex justify-center">
-        <div
+    <Suspense
+      fallback={
+        <FullScreenContainer>
+          <Loading type="dots" size="xl" className="text-primary" />
+        </FullScreenContainer>
+      }
+    >
+      <Col className="min-h-screen bg-neutral-200 items-center">
+        <Col
           className="w-full bg-base-100 min-h-screen"
-          style={{maxWidth: WIDTH_SM}}
+          style={{maxWidth: BREAK_POINT_SM}}
         >
           <Outlet />
-        </div>
-      </Flex>
+        </Col>
+      </Col>
     </Suspense>
   );
 }

@@ -1,73 +1,56 @@
-import {useEffect, useState, type FC, type FormEvent} from "react";
-import {Link, useNavigate} from "react-router";
-import {useAuth} from "../hooks/useAuth";
-import type {AuthFormType} from "@/types/auth.type";
-import {Button, Grid, Text} from "@/components/atoms";
-import {FormField, Title} from "@/components/molecules";
+import {type FC} from "react";
+import {Link} from "react-router";
+import {Button, Col, Form, Text} from "@/components/atoms";
+import {FormField} from "@/components/molecules";
+import useAuthForm from "../hooks/useAuthForm";
+import useConditionalText from "../hooks/useConditionalText";
 
-interface AuthFormProps {
+export interface AuthFormProps {
   isSignUp?: boolean;
 }
 
-const AuthForm: FC<AuthFormProps> = ({isSignUp}) => {
-  const {user, loading, error, signIn, signUp} = useAuth();
-  const navigate = useNavigate();
-
-  const [authForm, setAuthForm] = useState<AuthFormType>({
-    email: "",
-    password: "",
-    name: "",
-  });
-
-  useEffect(() => {
-    if (user?.id) {
-      navigate("/");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
-  const title = isSignUp ? "Sign Up" : "Sign In";
-  const directTitle = !isSignUp ? "Sign Up" : "Sign In";
-  const directRoute = !isSignUp ? "/sign-up" : "/sign-in";
-  const directText = !isSignUp
-    ? "Don’t have an account?"
-    : "Already have an account?";
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = e.target;
-    setAuthForm((prev) => ({...prev, [name]: value}));
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    if (isSignUp) {
-      await signUp(authForm);
-      return;
-    }
-    await signIn(authForm);
-  };
+const AuthForm: FC<AuthFormProps> = (props) => {
+  const {handleChange, handleSubmit, loading, error} = useAuthForm(props);
+  const {title, directTitle, directRoute, directText} =
+    useConditionalText(props);
 
   return (
-    <Grid isForm className="place-items-center" onSubmit={handleSubmit}>
-      <Title>{title} to Uangku</Title>
-      {isSignUp && <FormField name="name" onChange={handleChange} />}
+    <Form onSubmit={handleSubmit}>
+      <Col className="items-center gap-1">
+        <Text
+          size="md"
+          color="base-80"
+          weight="extrabold"
+          className="tracking-tight"
+        >
+          {title}
+        </Text>
+        <Text color="base-60" size="sm">
+          Manage your finances better with UangKu.
+        </Text>
+      </Col>
+      {props.isSignUp && <FormField name="name" onChange={handleChange} />}
 
       <FormField name="email" type="email" onChange={handleChange} />
 
       <FormField name="password" type="password" onChange={handleChange} />
 
-      <Button className="w-full" loading={loading}>
+      <Button className="w-full font-extrabold" loading={loading}>
         {title}
       </Button>
 
       {error && <Text className="text-red-500">{error}</Text>}
-      <Text>
+      <Text color="base-60" size="sm">
         {directText}{" "}
-        <Link to={directRoute} className="text-blue-400 underline">
+        <Link
+          to={directRoute}
+          className="text-base-content/60 font-semibold underline transition-all"
+        >
           {directTitle}
         </Link>
       </Text>
-    </Grid>
+    </Form>
   );
 };
+
 export default AuthForm;

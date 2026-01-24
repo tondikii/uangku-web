@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import SignUpPage from "../SignUpPage";
+import SignUpPage from "../SignUp.page";
 
 // mock AuthForm
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

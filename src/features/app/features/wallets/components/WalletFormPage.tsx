@@ -1,0 +1,74 @@
+import type {FC} from "react";
+import {Button, Col, Form, Row, Text} from "@/components/atoms";
+import {ScreenHeader} from "@/features/app/components";
+import {useDeleteWallet, useFetchWallet, useWalletForm} from "../hooks";
+import {formatIdr} from "@/utils/formatter.utils";
+import {FormField} from "@/components/molecules";
+import {CiTrash} from "react-icons/ci";
+
+interface WalletFormPageProps {
+  id?: string;
+}
+
+const WalletFormPage: FC<WalletFormPageProps> = ({id}) => {
+  const title = id ? "EDIT" : "CREATE";
+
+  const {data} = useFetchWallet(id);
+
+  const {
+    walletForm,
+    handleChange,
+    handleSubmit,
+    loading,
+    error,
+    disabledSubmit,
+  } = useWalletForm(data);
+
+  const {
+    handleDelete,
+    loading: deleteLoading,
+    error: deleteError,
+  } = useDeleteWallet(id || "");
+
+  const displayBalance =
+    walletForm.balance > 0 ? formatIdr(walletForm.balance) : "";
+
+  return (
+    <Col className="flex-col h-full relative overflow-hidden">
+      <ScreenHeader withGoBack title={`${title} WALLET`} />
+      <Form className="p-4" onSubmit={handleSubmit}>
+        <FormField
+          name="name"
+          label="Name"
+          placeholder="Cash"
+          value={walletForm.name}
+          onChange={handleChange}
+        />
+        <FormField
+          name="balance"
+          label="Initial Balance"
+          placeholder="Rp 100.000"
+          value={displayBalance}
+          onChange={handleChange}
+          required={false}
+        />
+        <Row className="gap-2 w-full justify-end">
+          <Button
+            color="secondary"
+            onClick={handleDelete}
+            loading={deleteLoading}
+          >
+            <CiTrash size={20} />
+          </Button>
+
+          <Button loading={loading} disabled={disabledSubmit}>
+            Save
+          </Button>
+        </Row>
+        {error && <Text className="text-red-500">{error}</Text>}
+        {deleteError && <Text className="text-red-500">{deleteError}</Text>}
+      </Form>
+    </Col>
+  );
+};
+export default WalletFormPage;

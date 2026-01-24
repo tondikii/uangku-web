@@ -28,7 +28,7 @@ export default function ErrorPage() {
   const data = isPageNotFoundError ? dataPageNotFound : dataServerError;
 
   return (
-    <FullScreenContainer className="flex-col">
+    <FullScreenContainer>
       <Image className="w-xs" src={data.image} alt={data.imageAlt} />
       <Text className="mt-2" size="sm">
         {data.message}

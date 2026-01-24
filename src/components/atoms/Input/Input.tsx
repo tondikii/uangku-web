@@ -7,7 +7,7 @@ const Input: FC<InputHTMLAttributes<HTMLInputElement>> = ({
   return (
     <input
       type={props.type || "text"}
-      className={`w-full input input-primary ${className}`}
+      className={`w-full input input-primary text-sm text-base-content/60 font-medium ${className}`}
       required={props?.required === undefined ? true : props.required}
       {...props}
     />

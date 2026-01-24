@@ -1,1 +1,1 @@
-export const WIDTH_SM = "26rem";
+export const BREAK_POINT_SM = "27rem";

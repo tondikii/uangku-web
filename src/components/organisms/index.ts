@@ -1,1 +1,2 @@
-export {default as PageLoader} from "./PageLoader/PageLoader";
+export {default as ProtectedRoute} from "./ProtectedRoute/ProtectedRoute";
+export {default as PublicRoute} from "./PublicRoute/PublicRoute";

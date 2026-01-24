@@ -1,5 +1,5 @@
-import {Grid, Input, Label} from "@/components/atoms";
-import {camelToTitleCase} from "@/utils/formatters.util";
+import {Col, Input, Label} from "@/components/atoms";
+import {camelToTitleCase} from "@/utils/formatter.utils";
 import type {FC, InputHTMLAttributes} from "react";
 
 interface FormFieldProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -8,13 +8,13 @@ interface FormFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const FormField: FC<FormFieldProps> = ({...props}) => {
   const label = props?.label || camelToTitleCase(props.name);
-  const placeholder = props?.placeholder || label.toLowerCase();
+  const placeholder = props?.placeholder || `Enter the ${label.toLowerCase()}`;
 
   return (
-    <Grid gap={2}>
+    <Col className="w-full gap-2">
       <Label>{label}</Label>
       <Input placeholder={placeholder} {...props} />
-    </Grid>
+    </Col>
   );
 };
 export default FormField;

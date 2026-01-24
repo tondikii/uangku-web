@@ -1,4 +1,4 @@
-import {Flex} from "@/components/atoms";
+import {Col} from "@/components/atoms";
 import type {FC, HTMLAttributes} from "react";
 
 const FullScreenContainer: FC<HTMLAttributes<HTMLDivElement>> = ({
@@ -6,11 +6,9 @@ const FullScreenContainer: FC<HTMLAttributes<HTMLDivElement>> = ({
   children = null,
 }) => {
   return (
-    <Flex
-      className={`w-full h-screen justify-center items-center p-4 ${className}`}
-    >
+    <Col className={`w-full h-screen justify-center items-center ${className}`}>
       {children}
-    </Flex>
+    </Col>
   );
 };
 export default FullScreenContainer;

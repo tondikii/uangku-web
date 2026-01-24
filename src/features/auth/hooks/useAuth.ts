@@ -1,55 +1,67 @@
-import {useState} from "react";
-import {signInService, signUpService} from "../services/authService";
+import {useNavigate} from "react-router";
+import {isAxiosError} from "axios";
+import {signInService, signUpService} from "../services/auth.services";
+import useContextData from "@/store/useContextData";
+import useMutation from "@/hooks/useMutation"; // Pastikan path ini benar
 import type {
   AuthFormType,
   SignInResponse,
   SignUpResponse,
-} from "@/types/auth.type";
-import useContextData from "@/store/useContextData";
-import {isAxiosError} from "axios";
+} from "../types/auth.types";
 
 export function useAuth() {
+  const navigate = useNavigate();
   const {user, setUser} = useContextData();
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  async function signIn(payload: AuthFormType) {
+  const {
+    mutate: mutateSignIn,
+    loading: signInLoading,
+    error: signInError,
+  } = useMutation<SignInResponse, AuthFormType>(signInService);
+
+  const {
+    mutate: mutateSignUp,
+    loading: signUpLoading,
+    error: signUpError,
+  } = useMutation<SignUpResponse, AuthFormType>(signUpService);
+
+  const signIn = async (payload: AuthFormType) => {
     try {
-      setLoading(true);
-      setError(null);
-      const res: SignInResponse = await signInService(payload);
+      const res = await mutateSignIn(payload);
+
       if (res?.data?.accessToken) {
         localStorage.setItem("access_token", res.data.accessToken);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
         setUser(res.data.user);
+        navigate("/");
       }
-      return res;
-    } catch (err: unknown) {
-      let errorMessage = "An error occurred during sign-in.";
-      if (isAxiosError<SignInResponse>(err)) {
-        errorMessage = err.response?.data?.message || err.message;
-      }
-      setError(errorMessage);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function signUp(payload: AuthFormType) {
-    try {
-      setLoading(true);
-      setError(null);
-      const res: SignUpResponse = await signUpService(payload);
       return res;
     } catch (err) {
-      let errorMessage = "An error occurred during sign-in.";
-      if (isAxiosError<SignInResponse>(err)) {
-        errorMessage = err.response?.data?.message || err.message;
-      }
-      setError(errorMessage);
-    } finally {
-      setLoading(false);
+      console.error("Sign in failed:", err);
     }
-  }
+  };
 
-  return {user, setUser, loading, error, signIn, signUp};
+  const signUp = async (payload: AuthFormType) => {
+    try {
+      return await mutateSignUp(payload);
+    } catch (err) {
+      console.error("Sign up failed:", err);
+    }
+  };
+
+  const getErrorMessage = (error: unknown) => {
+    if (isAxiosError(error)) {
+      return error.response?.data?.message || error.message;
+    }
+    return null;
+  };
+
+  return {
+    user,
+    setUser,
+    loading: signInLoading || signUpLoading,
+    error: getErrorMessage(signInError) || getErrorMessage(signUpError),
+    signIn,
+    signUp,
+  };
 }
