@@ -2,11 +2,11 @@ import {EmptyData} from "@/assets";
 import {Col, Image, Text} from "@/components/atoms";
 import type {FC} from "react";
 
-interface EmptyPageProps {
+interface ScreenEmptyProps {
   entityName: string;
 }
 
-const EmptyPage: FC<EmptyPageProps> = ({entityName}) => {
+const ScreenEmpty: FC<ScreenEmptyProps> = ({entityName}) => {
   return (
     <Col className="h-full justify-center items-center gap-2">
       <Image className="w-xs" src={EmptyData} alt="Empty Data" />
@@ -17,4 +17,4 @@ const EmptyPage: FC<EmptyPageProps> = ({entityName}) => {
   );
 };
 
-export default EmptyPage;
+export default ScreenEmpty;

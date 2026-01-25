@@ -1,6 +1,6 @@
 import type {FC} from "react";
-import {Button, Col, Form, Row, Text} from "@/components/atoms";
-import {ScreenHeader} from "@/features/app/components";
+import {Button, Form, Row, Text} from "@/components/atoms";
+import {ScreenContainer} from "@/features/app/components";
 import {useDeleteWallet, useFetchWallet, useWalletForm} from "../hooks";
 import {formatIdr} from "@/utils/formatter.utils";
 import {FormField} from "@/components/molecules";
@@ -34,8 +34,12 @@ const WalletFormPage: FC<WalletFormPageProps> = ({id}) => {
     walletForm.balance > 0 ? formatIdr(walletForm.balance) : "";
 
   return (
-    <Col className="flex-col h-full relative overflow-hidden">
-      <ScreenHeader withGoBack title={`${title} WALLET`} />
+    <ScreenContainer
+      headerProps={{
+        title: `${title} WALLET`,
+        withGoBack: true,
+      }}
+    >
       <Form className="p-4" onSubmit={handleSubmit}>
         <FormField
           name="name"
@@ -68,7 +72,7 @@ const WalletFormPage: FC<WalletFormPageProps> = ({id}) => {
         {error && <Text className="text-red-500">{error}</Text>}
         {deleteError && <Text className="text-red-500">{deleteError}</Text>}
       </Form>
-    </Col>
+    </ScreenContainer>
   );
 };
 export default WalletFormPage;

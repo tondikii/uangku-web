@@ -1,10 +1,38 @@
-import useContextData from "@/store/useContextData";
+import {useFetchTransactions} from "../hooks";
+import {
+  ScreenEmpty,
+  ScreenLoader,
+  ScreenError,
+  ScreenContainer,
+} from "@/features/app/components";
+import {TransactionList} from "../components";
 
-export default function TransactionsPage() {
-  const {user} = useContextData();
+const WalletsPage = () => {
+  const {data, loading, error, success} = useFetchTransactions();
+
+  const renderContent = () => {
+    if (loading) {
+      return <ScreenLoader />;
+    }
+    if (success && data.length < 1) {
+      return <ScreenEmpty entityName="wallet" />;
+    }
+    if (error) {
+      return <ScreenError errorMessage={error} />;
+    }
+    return <TransactionList data={data} />;
+  };
+
   return (
-    <div>
-      <h2 className="text-2xl font-semibold">Transactions Page {user?.name}</h2>
-    </div>
+    <ScreenContainer
+      headerProps={{
+        title: "TRANSACTIONS OVERVIEW",
+      }}
+      withAddButton
+    >
+      {renderContent()}
+    </ScreenContainer>
   );
-}
+};
+
+export default WalletsPage;

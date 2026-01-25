@@ -1,19 +1,20 @@
 import type {FC, ParamHTMLAttributes} from "react";
 
 export interface TextProps extends ParamHTMLAttributes<HTMLParagraphElement> {
-  size?: "10px" | "xs" | "sm" | "md" | "lg";
-  color?: "base-80" | "base-60" | "primary";
+  size?: "8px" | "10px" | "xs" | "sm" | "md" | "lg";
+  color?: "base-75" | "base-60" | "primary";
   weight?: "normal" | "medium" | "semibold" | "bold" | "extrabold";
 }
 
 const Text: FC<TextProps> = ({
   className = "",
-  size = "sm",
-  color = "base-80",
+  size = "xs",
+  color = "base-75",
   weight = "normal",
   ...props
 }) => {
   const sizeClasses = {
+    "8px": "text-[8px]",
     "10px": "text-[10px]",
     xs: "text-xs",
     sm: "text-sm",
@@ -22,7 +23,7 @@ const Text: FC<TextProps> = ({
   };
 
   const colorClasses = {
-    "base-80": "text-base-content/80",
+    "base-75": "text-base-content/75",
     "base-60": "text-base-content/60",
     primary: "text-primary",
   };

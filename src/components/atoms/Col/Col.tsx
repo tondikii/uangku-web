@@ -1,6 +1,6 @@
 import type {FC, HTMLAttributes} from "react";
 
-interface ColProps extends HTMLAttributes<HTMLDivElement> {
+export interface ColProps extends HTMLAttributes<HTMLDivElement> {
   gap?: number;
 }
 

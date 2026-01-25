@@ -14,14 +14,15 @@ const WalletsList: FC<WalletsListProps> = ({data}) => {
     <Ul>
       {data.map((wallet: Wallet) => (
         <Link
+          key={wallet.id}
           to={`/wallets/${wallet.id}`}
           className="border-b border-base-300 last:border-0"
         >
-          <Li key={wallet.id}>
+          <Li>
             <Col gap={1}>
               <Text weight="semibold">{wallet.name}</Text>
               <Text
-                size="10px"
+                size="8px"
                 color="base-60"
                 weight="semibold"
                 className="tracking-wider opacity-70"

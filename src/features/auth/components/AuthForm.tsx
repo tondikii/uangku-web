@@ -17,12 +17,7 @@ const AuthForm: FC<AuthFormProps> = (props) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Col className="items-center gap-1">
-        <Text
-          size="md"
-          color="base-80"
-          weight="extrabold"
-          className="tracking-tight"
-        >
+        <Text size="md" weight="extrabold" className="tracking-tight">
           {title}
         </Text>
         <Text color="base-60" size="sm">

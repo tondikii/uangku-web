@@ -3,7 +3,7 @@ import type {FC, HTMLAttributes} from "react";
 import {FiChevronLeft} from "react-icons/fi"; // Menggunakan react-icons
 import {useNavigate} from "react-router";
 
-interface ScreenHeaderProps extends HTMLAttributes<HTMLDivElement> {
+export interface ScreenHeaderProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   withGoBack?: boolean;
 }

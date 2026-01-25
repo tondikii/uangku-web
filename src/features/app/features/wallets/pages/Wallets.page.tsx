@@ -1,13 +1,12 @@
-import {Col, Row, Text} from "@/components/atoms";
+import {Row, Text} from "@/components/atoms";
 import {useFetchWallets} from "../hooks";
 import {formatIdr} from "@/utils/formatter.utils";
 import type {Wallet} from "@/types/wallet.types";
 import {
-  AddButton,
   ScreenEmpty,
   ScreenLoader,
-  ScreenHeader,
   ScreenError,
+  ScreenContainer,
 } from "@/features/app/components";
 import {WalletsList} from "../components";
 
@@ -31,22 +30,20 @@ const WalletsPage = () => {
   };
 
   return (
-    <Col className="flex-col h-full relative overflow-hidden">
-      <ScreenHeader title="WALLETS OVERVIEW">
-        <Row className="justify-between gap-1">
-          <Text color="base-80" size="xs">
-            Total Balance
-          </Text>
-          <Text color="base-80" size="xs">
-            {formatIdr(totalBalance)}
-          </Text>
-        </Row>
-      </ScreenHeader>
-
+    <ScreenContainer
+      headerProps={{
+        title: "WALLETS OVERVIEW",
+        children: (
+          <Row className="justify-between gap-1">
+            <Text size="xs">Total Balance</Text>
+            <Text size="xs">{formatIdr(totalBalance)}</Text>
+          </Row>
+        ),
+      }}
+      withAddButton
+    >
       {renderContent()}
-
-      <AddButton />
-    </Col>
+    </ScreenContainer>
   );
 };
 
