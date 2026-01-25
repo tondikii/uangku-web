@@ -1,20 +1,18 @@
+import type {ApiResponse} from "@/types/api.types";
 import type {Wallet} from "@/types/wallet.types";
 
-export interface GetWalletResponse {
+export interface GetWalletResponse extends ApiResponse {
   data?: Wallet;
-  message: string;
 }
 
-export interface GetWalletsResponse {
+export interface GetWalletsResponse extends ApiResponse {
   data?: Wallet[];
-  message: string;
 }
 
 export type WalletMutationParams = WalletFormType & {id?: number};
 
-export interface MutationWalletResponse {
+export interface MutationWalletResponse extends ApiResponse {
   data?: Wallet;
-  message: string;
 }
 
 export interface WalletFormType {

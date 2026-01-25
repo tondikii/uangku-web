@@ -1,5 +1,6 @@
 import useFetch from "@/hooks/useFetch";
 import {getWalletsService} from "../services/wallet.services";
+import {getErrorMessage} from "@/utils/axios.utils";
 
 const useFetchWallets = () => {
   const fetched = useFetch(getWalletsService);
@@ -9,8 +10,9 @@ const useFetchWallets = () => {
   return {
     data,
     loading: fetched.loading,
-    error: fetched.error,
+    error: getErrorMessage(fetched.error),
     refetch: fetched.refetch,
+    success: fetched?.data?.success,
   };
 };
 

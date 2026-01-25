@@ -30,7 +30,7 @@ export default function ErrorPage() {
   return (
     <FullScreenContainer>
       <Image className="w-xs" src={data.image} alt={data.imageAlt} />
-      <Text className="mt-2" size="sm">
+      <Text size="sm" color="base-60" className="mt-2">
         {data.message}
       </Text>
     </FullScreenContainer>

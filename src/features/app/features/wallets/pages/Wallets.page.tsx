@@ -2,14 +2,33 @@ import {Col, Row, Text} from "@/components/atoms";
 import {useFetchWallets} from "../hooks";
 import {formatIdr} from "@/utils/formatter.utils";
 import type {Wallet} from "@/types/wallet.types";
+import {
+  AddButton,
+  ScreenEmpty,
+  ScreenLoader,
+  ScreenHeader,
+  ScreenError,
+} from "@/features/app/components";
 import {WalletsList} from "../components";
-import {AddButton, ScreenHeader} from "@/features/app/components";
 
 const WalletsPage = () => {
-  const {data} = useFetchWallets();
+  const {data, loading, error, success} = useFetchWallets();
 
   const totalBalance =
     data?.reduce((acc: number, curr: Wallet) => acc + curr.balance, 0) || 0;
+
+  const renderContent = () => {
+    if (loading) {
+      return <ScreenLoader />;
+    }
+    if (success && data.length < 1) {
+      return <ScreenEmpty entityName="wallet" />;
+    }
+    if (error) {
+      return <ScreenError errorMessage={error} />;
+    }
+    return <WalletsList data={data} />;
+  };
 
   return (
     <Col className="flex-col h-full relative overflow-hidden">
@@ -24,7 +43,7 @@ const WalletsPage = () => {
         </Row>
       </ScreenHeader>
 
-      <WalletsList data={data} />
+      {renderContent()}
 
       <AddButton />
     </Col>

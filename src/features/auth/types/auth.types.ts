@@ -1,3 +1,4 @@
+import type {ApiResponse} from "@/types/api.types";
 import type {User} from "@/types/user.types";
 
 export interface AuthFormType {
@@ -6,14 +7,13 @@ export interface AuthFormType {
   password: string;
 }
 
-export interface SignUpResponse {
+export interface SignUpResponse extends ApiResponse {
   data?: {
     user: User;
   };
-  message: string;
 }
 
-export interface SignInResponse extends SignUpResponse {
+export interface SignInResponse extends ApiResponse {
   data?: {
     user: User;
     accessToken: string;
