@@ -6,6 +6,12 @@ import {ProtectedRoute} from "@/components/organisms";
 const TransactionPage = lazy(
   () => import("./features/transactions/pages/Transactions.page"),
 );
+const CreateTransactionPage = lazy(
+  () => import("./features/transactions/pages/CreateTransaction.page"),
+);
+const DetailTransactionPage = lazy(
+  () => import("./features/transactions/pages/DetailTransaction.page"),
+);
 
 const WalletsPage = lazy(() => import("./features/wallets/pages/Wallets.page"));
 const CreateWalletPage = lazy(
@@ -31,6 +37,14 @@ const appRoutes: RouteObject[] = [
       {
         index: true,
         element: <TransactionPage />,
+      },
+      {
+        path: "create",
+        element: <CreateTransactionPage />,
+      },
+      {
+        path: "/:id",
+        element: <DetailTransactionPage />,
       },
       {
         path: "wallets",

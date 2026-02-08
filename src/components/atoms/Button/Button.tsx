@@ -2,7 +2,14 @@ import type {FC, ButtonHTMLAttributes} from "react";
 import {Loading} from "../";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: "primary" | "secondary" | "accent" | "error" | "ghost" | "link";
+  color?:
+    | "primary"
+    | "secondary"
+    | "accent"
+    | "error"
+    | "ghost"
+    | "link"
+    | "neutral";
   size?: "xs" | "sm" | "md" | "lg";
   loading?: boolean;
   outline?: boolean;
@@ -10,7 +17,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: FC<ButtonProps> = ({
   loading,
-  className = "",
+  className = "text-xs",
   color = "primary",
   size = "md",
   outline = false,
@@ -25,6 +32,7 @@ const Button: FC<ButtonProps> = ({
     ghost: "btn-ghost",
     link: "btn-link",
     error: "btn-error",
+    neutral: "btn-neutral",
   };
 
   const sizeClasses = {

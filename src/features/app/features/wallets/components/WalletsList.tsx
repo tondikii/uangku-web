@@ -1,8 +1,7 @@
-import {Col, Li, Row, Text, Ul} from "@/components/atoms";
+import {Col, Icon, Li, Row, Text, Ul} from "@/components/atoms";
 import type {Wallet} from "@/types/wallet.types";
 import {formatDate, formatIdr} from "@/utils/formatter.utils";
 import type {FC} from "react";
-import {FiChevronRight} from "react-icons/fi";
 import {Link} from "react-router";
 
 interface WalletsListProps {
@@ -33,7 +32,11 @@ const WalletsList: FC<WalletsListProps> = ({data}) => {
 
             <Row gap={4} className="items-center">
               <Text weight="semibold">{formatIdr(wallet.balance)}</Text>
-              <FiChevronRight className="text-base-content/30 text-lg" />
+              <Icon
+                size={14}
+                name="chevron-right"
+                className="text-base-content/30"
+              />
             </Row>
           </Li>
         </Link>

@@ -1,10 +1,9 @@
 import type {FC} from "react";
-import {Button, Form, Row, Text} from "@/components/atoms";
+import {Button, Form, Icon, Row, Text} from "@/components/atoms";
 import {ScreenContainer} from "@/features/app/components";
 import {useDeleteWallet, useFetchWallet, useWalletForm} from "../hooks";
 import {formatIdr} from "@/utils/formatter.utils";
 import {FormField} from "@/components/molecules";
-import {CiTrash} from "react-icons/ci";
 
 interface WalletFormPageProps {
   id?: string;
@@ -57,13 +56,15 @@ const WalletFormPage: FC<WalletFormPageProps> = ({id}) => {
           required={false}
         />
         <Row className="gap-2 w-full justify-end">
-          <Button
-            color="secondary"
-            onClick={handleDelete}
-            loading={deleteLoading}
-          >
-            <CiTrash size={20} />
-          </Button>
+          {id ? (
+            <Button
+              color="secondary"
+              onClick={handleDelete}
+              loading={deleteLoading}
+            >
+              <Icon name="trash-can" size={14} />
+            </Button>
+          ) : null}
 
           <Button loading={loading} disabled={disabledSubmit}>
             Save

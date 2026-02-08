@@ -10,3 +10,5 @@ export {default as Col} from "./Col/Col";
 export {default as Row} from "./Row/Row";
 export {default as Ul} from "./Ul/Ul";
 export {default as Li} from "./Li/Li";
+export {default as Icon} from "./Icon/Icon";
+export {default as Select} from "./Select/Select";

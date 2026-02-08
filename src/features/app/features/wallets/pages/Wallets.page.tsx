@@ -35,8 +35,12 @@ const WalletsPage = () => {
         title: "WALLETS OVERVIEW",
         children: (
           <Row className="justify-between gap-1">
-            <Text size="xs">Total Balance</Text>
-            <Text size="xs">{formatIdr(totalBalance)}</Text>
+            <Text size="sm" weight="semibold">
+              Total Balance
+            </Text>
+            <Text size="sm" weight="semibold">
+              {formatIdr(totalBalance)}
+            </Text>
           </Row>
         ),
       }}

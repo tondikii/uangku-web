@@ -21,7 +21,7 @@ const TransactionsList: FC<TransactionsListProps> = ({data}) => {
         const amountPrefix = getAmountPrefix(transaction.transactionType.id);
 
         return (
-          <Link key={transaction.id} to={`/transactions/${transaction.id}`}>
+          <Link key={transaction.id} to={`/${transaction.id}`}>
             <Li>
               <Col className="flex-1 items-start gap-1">
                 <Text weight="semibold" className="text-base-content text-left">

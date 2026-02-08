@@ -10,6 +10,7 @@ export interface TransactionCategory {
   id: number;
   name: string;
   iconName: string | null;
+  transactionType: TransactionType;
 }
 
 export interface TransactionWallet {
