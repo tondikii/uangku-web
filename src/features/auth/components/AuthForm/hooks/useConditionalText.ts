@@ -1,4 +1,4 @@
-import type {AuthFormProps} from "../components/AuthForm";
+import type {AuthFormProps} from "../AuthForm";
 
 const useConditionalText = ({isSignUp}: AuthFormProps) => {
   const conditionalText = {

@@ -1,7 +1,7 @@
 import {ScreenContainer} from "@/features/app/components";
 import {useEffect, useState, type FC, type FormEvent} from "react";
-import {Button, Form, Icon, Row, Select, Text} from "@/components/atoms";
-import {FormField} from "@/components/molecules";
+import {Button, Form, Icon, Row, Text} from "@/components/atoms";
+import {FormField, FormFieldSelect} from "@/components/molecules";
 import {formatIdr} from "@/utils/formatter.utils";
 import {useFetchWallets} from "../../wallets/hooks";
 import {useMutation} from "@/hooks";
@@ -24,23 +24,45 @@ interface TransactionFormPageProps {
   id?: string;
 }
 
+const TRANSFER_TYPE_ID = 3;
+
 const TransactionFormPage: FC<TransactionFormPageProps> = ({id}) => {
   const title = id ? "EDIT" : "CREATE";
   const navigate = useNavigate();
+
   const [transactionForm, setTransactionForm] = useState<TransactionFormType>({
     transactionTypeId: 1,
     transactionCategoryId: 0,
     walletId: 0,
+    targetWalletId: 0,
     amount: 0,
+    adminFee: 0,
   });
 
-  const {transactionTypeId, transactionCategoryId, walletId, amount} =
-    transactionForm;
+  const {
+    transactionTypeId,
+    transactionCategoryId,
+    walletId,
+    targetWalletId,
+    amount,
+    adminFee,
+  } = transactionForm;
+
+  const isTransfer = transactionTypeId === TRANSFER_TYPE_ID;
+
   const displayAmount = amount > 0 ? formatIdr(amount) : "";
-  const disabledSubmit = !amount || !walletId;
+  const displayAdminFee = adminFee ? formatIdr(adminFee) : "";
+
+  const disabledSubmit =
+    !amount ||
+    !walletId ||
+    (isTransfer && (!targetWalletId || walletId === targetWalletId));
 
   const {data} = useFetchTransaction(id);
   const fetchedWallets = useFetchWallets();
+
+  const walletOptions = fetchedWallets.data || [];
+  const targetWalletOptions = walletOptions.filter((w) => w.id !== walletId);
 
   const {
     mutate: mutateTransaction,
@@ -56,22 +78,16 @@ const TransactionFormPage: FC<TransactionFormPageProps> = ({id}) => {
       return createTransactionService(params);
     },
   );
-  const mutateErrorMessage = getErrorMessage(mutateError);
 
   const {
     mutate: deleteTransaction,
     loading: deleteLoading,
     error: deleteError,
   } = useMutation(deleteTransactionService);
-  const deleteErrorMessage = getErrorMessage(deleteError);
 
   const handleDelete = async () => {
-    try {
-      await deleteTransaction(Number(id));
-      navigate(-1);
-    } catch (err) {
-      console.error("Delete wallet failed:", err);
-    }
+    await deleteTransaction(Number(id));
+    navigate(-1);
   };
 
   const handleClickTab = (id: number) => {
@@ -79,14 +95,13 @@ const TransactionFormPage: FC<TransactionFormPageProps> = ({id}) => {
       ...transactionForm,
       transactionTypeId: id,
       transactionCategoryId: 0,
+      targetWalletId: 0,
+      adminFee: 0,
     });
   };
 
   const handleClickCategory = (id: number) => {
-    setTransactionForm({
-      ...transactionForm,
-      transactionCategoryId: id,
-    });
+    setTransactionForm({...transactionForm, transactionCategoryId: id});
   };
 
   const handleChange = (
@@ -94,44 +109,45 @@ const TransactionFormPage: FC<TransactionFormPageProps> = ({id}) => {
   ) => {
     const {name, value} = e.target;
 
-    if (name === "wallet") {
-      setTransactionForm({...transactionForm, walletId: Number(value)});
-    } else {
-      const rawValue = value.replace(/\D/g, "");
-      setTransactionForm({...transactionForm, amount: Number(rawValue)});
+    if (name === "walletId" || name === "targetWalletId") {
+      setTransactionForm({...transactionForm, [name]: Number(value)});
+      return;
     }
-  };
 
-  const submitTransaction = async () => {
-    try {
-      const res = await mutateTransaction({
-        ...transactionForm,
-        ...(data?.id ? {id: data?.id} : {}),
-      });
-      if (res?.data?.id) {
-        navigate(-1);
-      }
-      return res;
-    } catch (err) {
-      console.error("Save wallet failed:", err);
-    }
+    const rawValue = value.replace(/\D/g, "");
+    setTransactionForm({...transactionForm, [name]: Number(rawValue)});
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (disabledSubmit) return;
-    await submitTransaction();
+
+    await mutateTransaction({
+      ...transactionForm,
+      ...(data?.id ? {id: data.id} : {}),
+    });
+
+    navigate(-1);
   };
 
   useEffect(() => {
-    if (data?.id) {
-      setTransactionForm({
-        transactionTypeId: data.transactionType.id,
-        transactionCategoryId: data.transactionCategory.id,
-        walletId: data.transactionWallets[0].id,
-        amount: data.amount,
-      });
-    }
+    if (!data?.id) return;
+
+    const sourceWallet = data.transactionWallets.find(
+      (w) => !w.isIncoming,
+    )?.wallet;
+    const targetWallet = data.transactionWallets.find(
+      (w) => w.isIncoming,
+    )?.wallet;
+
+    setTransactionForm({
+      transactionTypeId: data.transactionType.id,
+      transactionCategoryId: data.transactionCategory.id,
+      walletId: sourceWallet?.id || 0,
+      targetWalletId: targetWallet?.id || 0,
+      amount: data.amount,
+      adminFee: data.adminFee || 0,
+    });
   }, [data]);
 
   return (
@@ -140,7 +156,7 @@ const TransactionFormPage: FC<TransactionFormPageProps> = ({id}) => {
         title: `${title} TRANSACTION`,
         withGoBack: true,
       }}
-      className="items-center"
+      className="items-center overflow-auto"
     >
       <TransactionCategories
         transactionTypeId={transactionTypeId}
@@ -150,37 +166,62 @@ const TransactionFormPage: FC<TransactionFormPageProps> = ({id}) => {
       />
 
       {transactionCategoryId ? (
-        <Form className="p-4" onSubmit={handleSubmit}>
-          <Select
-            name="wallet"
+        <Form className="p-4 gap-4" onSubmit={handleSubmit}>
+          <FormFieldSelect
+            name="walletId"
+            label="Wallet"
             options={fetchedWallets.data}
+            value={walletId}
             onChange={handleChange}
           />
+
+          {isTransfer && (
+            <FormFieldSelect
+              name="targetWalletId"
+              label="Target Wallet"
+              options={targetWalletOptions}
+              onChange={handleChange}
+              value={targetWalletId}
+            />
+          )}
+
           <FormField
+            name="amount"
             placeholder="Rp 100.000"
             value={displayAmount}
             onChange={handleChange}
-            required={false}
           />
+
+          {isTransfer && (
+            <FormField
+              name="adminFee"
+              placeholder="Rp 0"
+              value={displayAdminFee}
+              onChange={handleChange}
+              required={false}
+            />
+          )}
+
           <Row className="gap-2 w-full justify-end">
-            {id ? (
+            {id && (
               <Button
                 color="secondary"
                 onClick={handleDelete}
                 loading={deleteLoading}
               >
-                <Icon name="trash-can" size={14} />
+                <Icon name="trash-can" size={12} />
               </Button>
-            ) : null}
+            )}
             <Button loading={mutateLoading} disabled={disabledSubmit}>
               Save
             </Button>
           </Row>
-          {mutateErrorMessage && (
-            <Text className="text-red-500">{mutateErrorMessage}</Text>
+
+          {mutateError && (
+            <Text className="text-red-500">{getErrorMessage(mutateError)}</Text>
           )}
-          {deleteErrorMessage && (
-            <Text className="text-red-500">{deleteErrorMessage}</Text>
+          {deleteError && (
+            <Text className="text-red-500">{getErrorMessage(deleteError)}</Text>
           )}
         </Form>
       ) : null}

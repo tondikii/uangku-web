@@ -62,7 +62,7 @@ const WalletFormPage: FC<WalletFormPageProps> = ({id}) => {
               onClick={handleDelete}
               loading={deleteLoading}
             >
-              <Icon name="trash-can" size={14} />
+              <Icon name="trash-can" size={12} />
             </Button>
           ) : null}
 

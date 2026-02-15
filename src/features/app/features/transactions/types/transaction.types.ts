@@ -21,6 +21,8 @@ export interface TransactionFormType {
   transactionCategoryId: number;
   walletId: number;
   amount: number;
+  targetWalletId?: number;
+  adminFee?: number;
 }
 
 export type TransactionMutationParams = TransactionFormType & {id?: number};

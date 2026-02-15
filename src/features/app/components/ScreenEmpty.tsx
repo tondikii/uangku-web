@@ -10,9 +10,7 @@ const ScreenEmpty: FC<ScreenEmptyProps> = ({entityName}) => {
   return (
     <Col className="h-full justify-center items-center gap-2">
       <Image className="w-xs" src={EmptyData} alt="Empty Data" />
-      <Text color="base-60" size="sm">
-        No {entityName} found.
-      </Text>
+      <Text color="base-60">No {entityName} found.</Text>
     </Col>
   );
 };

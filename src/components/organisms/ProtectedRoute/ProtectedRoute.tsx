@@ -1,4 +1,4 @@
-import {useAuth} from "@/features/auth/hooks/useAuth";
+import {useAuth} from "@/hooks";
 import type {FC} from "react";
 import {Navigate, type RouteProps} from "react-router";
 

@@ -1,7 +1,7 @@
 import {useState, type FormEvent} from "react";
-import {useAuth} from "./useAuth";
-import type {AuthFormType} from "../types/auth.types";
-import type {AuthFormProps} from "../components/AuthForm";
+import type {AuthFormProps} from "../AuthForm";
+import type {AuthFormType} from "@/features/auth/types/auth.types";
+import {useAuth} from "@/hooks";
 
 const useAuthForm = ({isSignUp}: AuthFormProps) => {
   const [authForm, setAuthForm] = useState<AuthFormType>({

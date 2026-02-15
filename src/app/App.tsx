@@ -1,10 +1,13 @@
 import {Col, Loading} from "@/components/atoms";
-import {FullScreenContainer} from "@/components/molecules";
+import {FullScreenContainer, Toast} from "@/components/molecules";
 import {BREAK_POINT_SM} from "@/constants/sizes.constant";
+import useContextData from "@/store/useContextData";
 import {Suspense} from "react";
 import {Outlet} from "react-router";
 
 export default function App() {
+  const {toast} = useContextData();
+
   return (
     <Suspense
       fallback={
@@ -19,6 +22,7 @@ export default function App() {
           style={{maxWidth: BREAK_POINT_SM}}
         >
           <Outlet />
+          <Toast {...toast} />
         </Col>
       </Col>
     </Suspense>

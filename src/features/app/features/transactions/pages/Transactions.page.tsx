@@ -7,7 +7,7 @@ import {
 } from "@/features/app/components";
 import {TransactionList} from "../components";
 
-const WalletsPage = () => {
+const TransactionsPage = () => {
   const {data, loading, error, success} = useFetchTransactions();
 
   const renderContent = () => {
@@ -15,7 +15,7 @@ const WalletsPage = () => {
       return <ScreenLoader />;
     }
     if (success && data.length < 1) {
-      return <ScreenEmpty entityName="wallet" />;
+      return <ScreenEmpty entityName="transaction" />;
     }
     if (error) {
       return <ScreenError errorMessage={error} />;
@@ -35,4 +35,4 @@ const WalletsPage = () => {
   );
 };
 
-export default WalletsPage;
+export default TransactionsPage;

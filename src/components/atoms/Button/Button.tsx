@@ -19,7 +19,7 @@ const Button: FC<ButtonProps> = ({
   loading,
   className = "text-xs",
   color = "primary",
-  size = "md",
+  size = "sm",
   outline = false,
   children,
   disabled,

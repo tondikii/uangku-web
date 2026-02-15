@@ -13,12 +13,11 @@ const ScreenContainer: FC<ScreenContainerProps> = ({
   headerProps,
   withAddButton,
   children,
-  ...colProps
 }) => {
   return (
-    <Col className="flex-col h-full relative overflow-hidden" {...colProps}>
+    <Col className="h-full relative">
       <ScreenHeader {...headerProps} />
-      {children}
+      <Col className="h-full overflow-auto">{children}</Col>
       {withAddButton && <AddButton />}
     </Col>
   );

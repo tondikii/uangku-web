@@ -11,7 +11,8 @@ import {
 import {WalletsList} from "../components";
 
 const WalletsPage = () => {
-  const {data, loading, error, success} = useFetchWallets();
+  const {data: fetchedData, loading, error, success} = useFetchWallets();
+  const data = [...fetchedData, ...fetchedData, ...fetchedData, ...fetchedData];
 
   const totalBalance =
     data?.reduce((acc: number, curr: Wallet) => acc + curr.balance, 0) || 0;
@@ -35,10 +36,10 @@ const WalletsPage = () => {
         title: "WALLETS OVERVIEW",
         children: (
           <Row className="justify-between gap-1">
-            <Text size="sm" weight="semibold">
+            <Text size="xs" weight="bold">
               Total Balance
             </Text>
-            <Text size="sm" weight="semibold">
+            <Text size="xs" weight="bold">
               {formatIdr(totalBalance)}
             </Text>
           </Row>

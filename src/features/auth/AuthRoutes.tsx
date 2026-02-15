@@ -1,7 +1,7 @@
 import {lazy} from "react";
-import AuthLayout from "./components/AuthLayout";
 import type {RouteObject} from "react-router";
 import {PublicRoute} from "@/components/organisms";
+import {AuthLayout} from "./components";
 
 const SignInPage = lazy(() => import("./pages/SignIn.page"));
 const SignUpPage = lazy(() => import("./pages/SignUp.page"));
