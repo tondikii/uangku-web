@@ -11,8 +11,7 @@ import {
 import {WalletsList} from "../components";
 
 const WalletsPage = () => {
-  const {data: fetchedData, loading, error, success} = useFetchWallets();
-  const data = [...fetchedData, ...fetchedData, ...fetchedData, ...fetchedData];
+  const {data, loading, error, success} = useFetchWallets();
 
   const totalBalance =
     data?.reduce((acc: number, curr: Wallet) => acc + curr.balance, 0) || 0;
