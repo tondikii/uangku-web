@@ -17,12 +17,12 @@ interface CategoryProps {
   handleClickCategory: (id: number) => void;
 }
 
-const createCategory = {
-  id: 0,
-  name: "Create New",
-  iconName: "circle-plus",
-  transactionType: {id: 0, name: ""},
-};
+// const createCategory = {
+//   id: 0,
+//   name: "Create New",
+//   iconName: "circle-plus",
+//   transactionType: {id: 0, name: ""},
+// };
 
 const Category: FC<CategoryProps> = ({
   data,
@@ -88,10 +88,10 @@ const TransactionCategories: FC<TransactionCategoriesProps> = ({
                     />
                   );
                 })}
-                <Category
+                {/* <Category
                   data={createCategory}
                   handleClickCategory={handleClickCategory}
-                />
+                /> */}
               </Grid>
             </div>
           </>

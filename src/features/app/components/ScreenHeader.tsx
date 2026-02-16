@@ -1,4 +1,4 @@
-import {Col, Text, Row, Icon} from "@/components/atoms";
+import {Col, Text, Row, Icon, Button} from "@/components/atoms";
 import type {FC, HTMLAttributes} from "react";
 import {useNavigate} from "react-router";
 
@@ -14,12 +14,12 @@ const ScreenHeader: FC<ScreenHeaderProps> = ({title, children, withGoBack}) => {
     <Col className="flex-col p-4 bg-primary gap-2 shrink-0 w-full">
       <Row className="items-center gap-2">
         {withGoBack && (
-          <Icon
-            name="chevron-left"
-            size={14}
-            className="text-base-content/60 cursor-pointer"
+          <Button
             onClick={() => navigate(-1)}
-          />
+            className="btn btn-ghost btn-xs p-0 text-base-content/60"
+          >
+            <Icon name="chevron-left" size={14} />
+          </Button>
         )}
 
         <Text

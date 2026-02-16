@@ -8,9 +8,11 @@ import type {
 } from "../types/transaction.types";
 
 export async function getTransactionsService(
+  params?: {date?: string},
   signal?: AbortSignal,
 ): Promise<GetTransactionsResponse> {
   const {data} = await api.get<GetTransactionsResponse>("/transactions", {
+    params,
     signal,
   });
   return data;
