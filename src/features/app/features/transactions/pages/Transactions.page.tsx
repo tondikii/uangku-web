@@ -24,6 +24,9 @@ const TransactionsPage = () => {
     newDate.setDate(selectedDate.getDate() + (direction === "prev" ? -1 : 1));
     setSelectedDate(newDate);
   };
+  const handleDateChange = (value: string) => {
+    setSelectedDate(new Date(value));
+  };
 
   const renderContent = () => {
     if (loading) return <ScreenLoader />;
@@ -47,9 +50,12 @@ const TransactionsPage = () => {
               <Icon name="chevron-left" size={14} />
             </Button>
 
-            <Text weight="semibold" color="base-60">
-              {format(selectedDate, "dd MMMM yyyy")}
-            </Text>
+            <input
+              type="date"
+              value={format(selectedDate, "yyyy-MM-dd")}
+              onChange={(e) => handleDateChange(e.target.value)}
+              className="input input-xs input-ghost text-center font-semibold w-1/3"
+            />
 
             <Button
               onClick={() => changeDay("next")}

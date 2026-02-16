@@ -7,3 +7,37 @@
   default: true;
   --color-primary: #92e3a9;
 }
+
+.recharts-wrapper:focus,
+.recharts-surface:focus,
+svg:focus {
+  outline: none !important;
+}
+
+.input-ghost:focus {
+  background: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: transparent !important;
+}
+
+/* Hilangkan semua focus visual untuk input month */
+input[type="month"]:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+/* Untuk Chrome (control internal) */
+input[type="month"]::-webkit-datetime-edit,
+input[type="month"]::-webkit-datetime-edit-fields-wrapper,
+input[type="month"]::-webkit-datetime-edit-month-field,
+input[type="month"]::-webkit-datetime-edit-year-field {
+  background: transparent !important;
+}
+
+/* Hilangkan focus ring bawaan */
+input[type="month"]:focus-visible {
+  outline: none !important;
+}
