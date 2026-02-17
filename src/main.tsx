@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import {RouterProvider} from "react-router";
 import router from "./app/router";
-import "react-datepicker/dist/react-datepicker.css";
 
 import "./index.css";
 import ContextDataProvider from "@/store/ContextDataProvider";
