@@ -1,6 +1,6 @@
 import {Col, Icon, Li, Row, Text, Ul} from "@/components/atoms";
 import type {Wallet} from "@/types/wallet.types";
-import {formatDate, formatIdr} from "@/utils/formatter.utils";
+import {formatDateLabel, formatIdr} from "@/utils/formatter.utils";
 import type {FC} from "react";
 import {Link} from "react-router";
 
@@ -26,7 +26,7 @@ const WalletsList: FC<WalletsListProps> = ({data}) => {
                 weight="semibold"
                 className="tracking-wider opacity-70"
               >
-                UPDATED {formatDate(wallet.updatedAt)}
+                UPDATED {formatDateLabel(wallet.updatedAt)}
               </Text>
             </Col>
 

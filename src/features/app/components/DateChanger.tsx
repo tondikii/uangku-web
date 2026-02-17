@@ -1,6 +1,7 @@
 import type {FC} from "react";
-import {format, addDays, subDays, addMonths, subMonths, parse} from "date-fns";
+import {addDays, subDays, addMonths, subMonths, parse} from "date-fns";
 import {Button, Icon, Row} from "@/components/atoms";
+import {formatDate, formatMonth} from "@/utils/formatter.utils";
 
 interface DateChangerProps {
   type?: "date" | "month";
@@ -13,8 +14,6 @@ const DateChanger: FC<DateChangerProps> = ({
   value,
   setValue,
 }) => {
-  const inputFormat = type === "date" ? "yyyy-MM-dd" : "yyyy-MM";
-
   const changer = (direction: "prev" | "next") => {
     if (type === "date") {
       setValue(direction === "prev" ? subDays(value, 1) : addDays(value, 1));
@@ -47,7 +46,7 @@ const DateChanger: FC<DateChangerProps> = ({
 
       <input
         type={type}
-        value={format(value, inputFormat)}
+        value={type === "date" ? formatDate(value) : formatMonth(value)}
         onChange={(e) => handleInputChange(e.target.value)}
         className="input input-xs input-ghost text-center font-semibold w-2/5"
       />

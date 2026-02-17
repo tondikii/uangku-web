@@ -13,16 +13,27 @@ export interface GetMonthlyReportResponse {
     balance: number;
   };
   breakdown: {
-    categories: {
-      categoryId: number;
-      categoryName: string;
-      iconName: string;
-      total: number;
-      percentage: number;
-    }[];
-    adminFee?: {
-      total: number;
-      percentage: number;
+    expense: {
+      categories: {
+        categoryId: number;
+        categoryName: string;
+        iconName: string;
+        total: number;
+        percentage: number;
+      }[];
+      adminFee: {
+        total: number;
+        percentage: number;
+      };
+    };
+    income: {
+      categories: {
+        categoryId: number;
+        categoryName: string;
+        iconName: string;
+        total: number;
+        percentage: number;
+      }[];
     };
   };
 }

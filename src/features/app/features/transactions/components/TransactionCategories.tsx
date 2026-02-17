@@ -32,7 +32,7 @@ const Category: FC<CategoryProps> = ({
   return (
     <Col className="items-center" gap={1}>
       <button
-        className={`btn btn-lg btn-circle shadow-2xl ${isSelected ? "bg-primary/80" : "bg-primary/30"} border-none`}
+        className={`btn btn-lg btn-circle shadow-2xl ${isSelected ? "bg-primary" : "bg-primary/30"} border-none`}
         onClick={() => handleClickCategory(data.id)}
       >
         <Icon size={18} name={data.iconName || ""} />
@@ -65,7 +65,7 @@ const TransactionCategories: FC<TransactionCategoriesProps> = ({
             <input
               type="radio"
               name="transactionType"
-              className={`tab tracking-wide font-semibold text-xs ${isChecked ? "text-base-content/80 !bg-primary/80" : "text-base-content/60"}`}
+              className={`tab tracking-wide font-semibold text-xs ${isChecked ? "text-base-content !bg-primary" : "text-base-content/60"}`}
               aria-label={type.name}
               checked={isChecked}
               onClick={() => handleClickTab(type.id)}

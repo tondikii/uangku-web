@@ -1,6 +1,6 @@
 import {Col, Li, Row, Text, Ul, Icon} from "@/components/atoms";
 import type {Transaction} from "@/types/transaction.types";
-import {formatDate, formatIdr} from "@/utils/formatter.utils";
+import {formatDateLabel, formatIdr} from "@/utils/formatter.utils";
 import type {FC} from "react";
 import {Link} from "react-router";
 
@@ -63,7 +63,7 @@ const TransactionsList: FC<TransactionsListProps> = ({data}) => {
                     weight="semibold"
                     className="tracking-wider opacity-70"
                   >
-                    {formatDate(transaction.createdAt)}
+                    {formatDateLabel(transaction.createdAt)}
                   </Text>
                 </Col>
 

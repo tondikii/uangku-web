@@ -33,6 +33,7 @@ export interface TransactionFormType {
   amount: number;
   targetWalletId?: number;
   adminFee?: number;
+  createdAt: Date;
 }
 
 export type TransactionMutationParams = TransactionFormType & {id?: number};

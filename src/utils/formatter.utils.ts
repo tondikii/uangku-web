@@ -1,3 +1,5 @@
+import {format} from "date-fns";
+
 export const camelToTitleCase = (params?: string) => {
   if (!params) return "";
   const result = params.replace(/([A-Z])/g, " $1");
@@ -13,10 +15,14 @@ export const formatIdr = (amount: number) => {
   }).format(amount);
 };
 
-export const formatDate = (dateString: string) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const options: any = {day: "2-digit", month: "short", year: "numeric"};
-  return new Date(dateString)
-    .toLocaleDateString("en-GB", options)
-    .toUpperCase();
+export const formatDate = (date: Date | string) => {
+  return format(date, "yyyy-MM-dd");
+};
+
+export const formatDateLabel = (date: Date | string) => {
+  return format(date, "dd MMM yyyy").toUpperCase();
+};
+
+export const formatMonth = (date: Date | string) => {
+  return format(date, "yyyy-MM");
 };

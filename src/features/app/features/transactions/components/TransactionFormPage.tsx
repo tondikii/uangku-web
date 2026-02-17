@@ -2,7 +2,7 @@ import {ScreenContainer} from "@/features/app/components";
 import {useEffect, useState, type FC, type FormEvent} from "react";
 import {Button, Form, Icon, Row, Text} from "@/components/atoms";
 import {FormField, FormFieldSelect} from "@/components/molecules";
-import {formatIdr} from "@/utils/formatter.utils";
+import {formatDate, formatIdr} from "@/utils/formatter.utils";
 import {useFetchWallets} from "../../wallets/hooks";
 import {useMutation} from "@/hooks";
 import type {
@@ -37,6 +37,7 @@ const TransactionFormPage: FC<TransactionFormPageProps> = ({id}) => {
     targetWalletId: 0,
     amount: 0,
     adminFee: 0,
+    createdAt: new Date(),
   });
 
   const {
@@ -46,6 +47,7 @@ const TransactionFormPage: FC<TransactionFormPageProps> = ({id}) => {
     targetWalletId,
     amount,
     adminFee,
+    createdAt,
   } = transactionForm;
 
   const isTransfer = transactionTypeId === TRANSFER_TYPE_ID;
@@ -107,7 +109,12 @@ const TransactionFormPage: FC<TransactionFormPageProps> = ({id}) => {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
-    const {name, value} = e.target;
+    const {name, value, type} = e.target;
+
+    if (type === "date") {
+      setTransactionForm({...transactionForm, [name]: new Date(value)});
+      return;
+    }
 
     if (name === "walletId" || name === "targetWalletId") {
       setTransactionForm({...transactionForm, [name]: Number(value)});
@@ -143,12 +150,13 @@ const TransactionFormPage: FC<TransactionFormPageProps> = ({id}) => {
     setTransactionForm({
       transactionTypeId: data.transactionType.id,
       transactionCategoryId: data.transactionCategory.id,
-      walletId: sourceWallet?.id || 0,
+      walletId: (isTransfer ? sourceWallet?.id : targetWallet?.id) || 0,
       targetWalletId: targetWallet?.id || 0,
       amount: data.amount,
       adminFee: data.adminFee || 0,
+      createdAt: new Date(data.createdAt),
     });
-  }, [data]);
+  }, [data, isTransfer]);
 
   return (
     <ScreenContainer
@@ -201,6 +209,13 @@ const TransactionFormPage: FC<TransactionFormPageProps> = ({id}) => {
               required={false}
             />
           )}
+
+          <FormField
+            name="createdAt"
+            type="date"
+            value={formatDate(createdAt)}
+            onChange={handleChange}
+          />
 
           <Row className="gap-2 w-full justify-end">
             {id && (
